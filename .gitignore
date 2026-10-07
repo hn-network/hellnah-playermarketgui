@@ -1,0 +1,25 @@
+# Maven and compiled binaries
+/target/
+*.class
+*.jar
+*.log
+# IDE metadata
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+# Local credentials and server runtime (do not ignore the example in src/main/resources)
+/config.yml
+/.env
+/.env.*
+/runtime/
+/server/
+/plugins/
+# Old database copies and backups
+*.db
+*.db-wal
+*.db-shm
+*.sql
+*.bak

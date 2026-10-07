@@ -1,0 +1,40 @@
+name: HellNah-PlayerMarketGui
+version: 1.1.0
+main: id.hellnah.market.PlayerMarket
+api-version: '1.21.11'
+author: HellNah
+softdepend: [Vault, PlayerPoints]
+libraries:
+  - com.mysql:mysql-connector-j:9.7.0
+description: Player market with durable escrow, permissions, search and filters.
+commands:
+  pmarket:
+    description: Open the player market
+    usage: /pmarket [player|sell|claim|search|reload]
+permissions:
+  hellnah.pmarket.use:
+    default: true
+  hellnah.pmarket.sell:
+    default: true
+  hellnah.pmarket.admin:
+    default: op
+  hellnah.pmarket.pages.1:
+    default: false
+  hellnah.pmarket.pages.2:
+    default: false
+  hellnah.pmarket.pages.3:
+    default: false
+  hellnah.pmarket.pages.4:
+    default: false
+  hellnah.pmarket.pages.5:
+    default: false
+  hellnah.pmarket.pages.6:
+    default: false
+  hellnah.pmarket.pages.7:
+    default: false
+  hellnah.pmarket.pages.8:
+    default: false
+  hellnah.pmarket.pages.9:
+    default: false
+  hellnah.pmarket.pages.10:
+    default: false

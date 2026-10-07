@@ -1,0 +1,17 @@
+Source checks for v1.1.0 (2026-10-07)
+
+Build/JAR compilation: NOT RUN, per user instruction.
+Java unit and MySQL integration tests: NOT RUN.
+Live Paper server/economy test: NOT RUN.
+
+Static checks passed:
+- Java syntax parsed using tree-sitter-java (7 Java source files).
+- pom.xml well-formed; Java 21 target and plugin version agree.
+- MySQL dependency scope provided; no SQLite or shade plugin.
+- plugin.yml driver version agrees with Maven property.
+- config.yml / plugin.yml / GitHub Actions YAML parsed.
+- CI includes disposable MySQL service and mysql-it profile.
+- Source archive excludes compiled binaries, target, actual credentials and database files.
+
+Tests provided for user/CI execution: 5 unit tests, 17 MySQL integration tests.
+The 15 SQLite test results of v1.0.0 do NOT validate this backend.

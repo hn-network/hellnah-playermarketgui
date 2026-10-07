@@ -1,0 +1,40 @@
+name: Build and MySQL tests
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: ci-temporary-password
+          MYSQL_DATABASE: hellnah_market_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 --silent"
+          --health-interval=10s --health-timeout=5s --health-retries=10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Build and test with disposable MySQL database
+        env:
+          PMARKET_TEST_HOST: 127.0.0.1
+          PMARKET_TEST_PORT: '3306'
+          PMARKET_TEST_DATABASE: hellnah_market_test
+          PMARKET_TEST_USER: root
+          PMARKET_TEST_PASSWORD: ci-temporary-password
+        run: mvn -B -Pmysql-it clean verify
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HellNah-PlayerMarketGui
+          path: target/HellNah-PlayerMarketGui-1.1.0.jar

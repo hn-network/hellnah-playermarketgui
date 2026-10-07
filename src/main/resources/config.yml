@@ -1,0 +1,143 @@
+# Database harus dibuat terlebih dahulu di panel VPS. Plugin membuat tabelnya.
+# Satu prefix tabel untuk satu server Paper; ganti storage memerlukan restart.
+storage:
+  type: MYSQL
+  mysql:
+    host: '127.0.0.1'
+    port: 3306
+    database: 'hellnah_market'
+    username: 'hellnah_market'
+    password: 'ISI_PASSWORD_DATABASE_DARI_PANEL'
+    # Opsional: pakai environment variable untuk password, bukan config inline.
+    password-env: ''
+    table-prefix: 'hnpm_'
+    # REQUIRED membutuhkan TLS. Untuk koneksi lokal tanpa TLS, gunakan DISABLED.
+    ssl-mode: REQUIRED
+    allow-public-key-retrieval: false
+    connect-timeout-ms: 3000
+    socket-timeout-ms: 3000
+
+# Harga disimpan sebagai integer minor units (money 2 decimals: 100 = 1.00).
+# Jangan ganti id/decimals currency setelah dipakai. Satu database untuk satu server Paper.
+default-currency: money
+currencies:
+  money:
+    enabled: true
+    type: VAULT
+    label: Money
+    decimals: 2
+  points:
+    enabled: false
+    type: PLAYERPOINTS
+    label: Points
+    decimals: 0
+capacity:
+  default-pages: 1
+  slots-per-page: 45
+  levels:
+    '1': 1
+    '2': 2
+    '3': 3
+    '4': 4
+    '5': 5
+    '6': 6
+    '7': 7
+    '8': 8
+    '9': 9
+    '10': 10
+listing:
+  expiry-hours: 72
+  min-price-minor: 1
+  max-price-minor: 100000000000
+  tax-percent: 0
+  blocked-materials: []
+security:
+  block-creative: true
+  max-item-bytes: 1048576
+# Match Material Minecraft menggunakan wildcard *. Urutan pertama yang cocok dipakai.
+categories:
+  Dekorasi: ['*_LEAVES', '*_SAPLING', '*_FLOWER', '*_TULIP', '*_CARPET', '*_GLASS*', '*_CANDLE*', '*_BANNER', 'DANDELION', 'POPPY', 'TORCH', '*_LANTERN', '*_POT', 'PAINTING']
+  Senjata: ['*_SWORD', 'BOW', 'CROSSBOW', 'TRIDENT', 'MACE', '*_AXE']
+  Armor: ['*_HELMET', '*_CHESTPLATE', '*_LEGGINGS', '*_BOOTS', 'ELYTRA', 'SHIELD']
+  Tools: ['*_PICKAXE', '*_SHOVEL', '*_HOE', 'SHEARS', 'FISHING_ROD', 'FLINT_AND_STEEL', 'BRUSH']
+  Makanan: ['*BEEF*', '*PORKCHOP*', '*CHICKEN*', '*MUTTON*', '*RABBIT*', '*COD*', '*SALMON*', '*APPLE', '*CARROT', '*POTATO', 'BREAD', 'COOKIE', 'CAKE', '*STEW', '*SOUP', 'MELON_SLICE', '*BERRIES']
+  Resource: ['*_INGOT', '*_NUGGET', '*_ORE', 'DIAMOND', 'EMERALD', 'COAL', 'CHARCOAL', 'REDSTONE', 'LAPIS_LAZULI', 'QUARTZ', 'AMETHYST_SHARD', 'NETHERITE_SCRAP', 'ANCIENT_DEBRIS']
+  Blok: ['*_PLANKS', '*_LOG', '*_WOOD', '*_STONE', '*_BRICKS', '*_CONCRETE', '*_TERRACOTTA', '*_WOOL', '*_SLAB', '*_STAIRS', '*_FENCE', 'STONE', 'COBBLESTONE', 'DIRT', 'GRASS_BLOCK', 'SAND', 'GRAVEL']
+  Magic: ['*_POTION', 'POTION', 'ENCHANTED_BOOK', 'ENDER_PEARL', 'END_CRYSTAL', 'TOTEM_OF_UNDYING', 'EXPERIENCE_BOTTLE', 'WIND_CHARGE']
+gui:
+  titles:
+    home: '&8HellNah Player Market'
+    players: '&8Market Players'
+    shop: '&8Player Shop'
+    types: '&8Browse Item'
+    categories: '&8Kategori Item'
+    category: '&8Item per Kategori'
+    material: '&8Pilih Penjual Item'
+    search: '&8Hasil Search Item'
+    shopsearch: '&8Hasil Search Shop'
+    own: '&8Your Market'
+    claims: '&8Unclaimed Items'
+    balances: '&8Saldo Market'
+    confirm: '&8Konfirmasi Market'
+  buttons:
+    players:
+      material: PLAYER_HEAD
+      name: '&eMarket Players'
+    browse:
+      material: CHEST
+      name: '&eBrowse Item'
+    categories:
+      material: OAK_LEAVES
+      name: '&eKategori Item'
+    search-item:
+      material: COMPASS
+      name: '&bSearch Item'
+    search-shop:
+      material: NAME_TAG
+      name: '&bSearch Shop'
+    your-market:
+      material: ENDER_CHEST
+      name: '&aYour Market'
+    unclaimed:
+      material: HOPPER
+      name: '&6Unclaimed Items'
+    back:
+      material: ARROW
+      name: '&cBack'
+    previous:
+      material: ARROW
+      name: '&ePrevious'
+    next:
+      material: ARROW
+      name: '&eNext'
+messages:
+  prefix: '&6[HellNah Market] &r'
+  no-permission: '&cKamu tidak punya izin.'
+  creative-blocked: '&cTransaksi hanya tersedia di Survival/Adventure.'
+  paused: '&cMarket dijeda karena masalah penyimpanan. Hubungi admin.'
+  error: '&cOperasi gagal. Hubungi admin untuk memeriksa log.'
+  invalid-input: '&cInput maksimal 80 karakter.'
+  invalid-price: '&cHarga tidak valid, terlalu kecil/besar, atau decimal berlebih.'
+  invalid-currency: '&cMata uang tidak tersedia. Pilihan: {currencies}'
+  empty-hand: '&cPegang item yang ingin dijual di tangan utama.'
+  item-changed: '&cItem di tangan berubah. Ulangi penjualan.'
+  blocked-item: '&cItem ini tidak diizinkan atau data item terlalu besar.'
+  full-market: '&cKapasitas market kamu sudah penuh.'
+  listed: '&a{item} berhasil dijual seharga {price}.'
+  unavailable: '&cListing ini sudah tidak tersedia.'
+  insufficient: '&cPembayaran ditolak: saldo kurang atau economy menolak transaksi.'
+  bought: '&aBerhasil membeli {item} seharga {price}. Ambil di Unclaimed Items.'
+  sold: '&a{buyer} membeli {item}. {price} masuk saldo market kamu.'
+  cancelled: '&eListing dibatalkan. Ambil item di Unclaimed Items.'
+  claimed: '&a{item} berhasil diambil.'
+  inventory-full: '&cButuh satu slot kosong di inventory utama.'
+  paid: '&aBerhasil menarik {price} ke saldo kamu.'
+  payout-failed: '&cPenarikan ditolak. Saldo tetap disimpan di market.'
+  quarantined: '&cTransaksi dikunci untuk pemeriksaan admin. Jangan ulangi transaksi ini.'
+  shop-missing: '&cMarket pemain itu belum ditemukan.'
+  prompt-sell: '&eKetik harga total di chat, contoh: 10000 money. Ketik cancel untuk batal (60 detik).'
+  prompt-item: '&eKetik material/nama item/lore di chat. Ketik cancel untuk batal (60 detik).'
+  prompt-shop: '&eKetik nama pemain di chat. Ketik cancel untuk batal (60 detik).'
+  info: '&eHarga total per listing. Hasil pembelian di Unclaimed Items. Kapasitas: {capacity} listing.'
+  unclaimed-reminder: '&eAda {count} item menunggu di Unclaimed Items. Buka /pmarket claim.'
+  balance-reminder: '&aAda hasil penjualan yang bisa ditarik di Your Market > Saldo Market.'
